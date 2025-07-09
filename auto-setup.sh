@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # install homebrew
 
 function install_homebrew() {
@@ -67,7 +69,7 @@ function install_packages() {
 		kubernetes-cli
 	)
 	for package in "${packages[@]}"; do
-		if brew list "$package" && ! which "$package" &>/dev/null; then
+		if brew list "$package" >/dev/null 2>&1 && command -v "$package" &>/dev/null 2>&1; then
 			echo "$package is already installed."
 		else
 			echo "Installing $package..."
@@ -157,14 +159,6 @@ function download_binaries() {
 
 }
 
-# aliases
-function create_aliases() {
-	echo "Creating aliases..."
-	cp -rf zsh "$HOME/.zsh"
-	source "$HOME/.zsh/basic.sh"
-	echo "Aliases created."
-}
-
 # git config
 function setup_git_config() {
 	echo "Setting up git config..."
@@ -185,6 +179,14 @@ function setup_zshrc() {
 	fi
 }
 
+# aliases
+function create_aliases() {
+	echo "Creating aliases..."
+	cp -rf zsh "$HOME/.zsh"
+	source "$HOME/.zsh/basic.sh"
+	echo "Aliases created."
+}
+
 # run the script
 echo "Starting setup..."
 
@@ -193,8 +195,8 @@ install_packages
 install_oh_my_zsh
 install_cask_package
 create_ssh_keys
-create_aliases
 setup_zshrc
+create_aliases
 
 echo "Setup completed successfully!"
 echo "Please restart your terminal or run 'source ~/.zshrc' to apply changes."
