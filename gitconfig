@@ -1,0 +1,9 @@
+# This is Git's per-user configuration file.
+[user]
+	name = leman
+	email = lemanlai90@gmail.com
+# Please adapt and uncomment the following lines:
+#	name = leman
+#	email = leman@lemans-MacBook-Pro.local
+[pull]
+	rebase = true

@@ -1,0 +1,6 @@
+Host *
+  #User root
+  IdentityFile ~/.ssh/id_ed25519
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking=no
+  LogLevel error
