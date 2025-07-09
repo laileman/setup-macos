@@ -67,18 +67,12 @@ function install_packages() {
 		kubernetes-cli
 	)
 	for package in "${packages[@]}"; do
-		if brew list "$package" &>/dev/null; then
+		if brew list "$package" && ! which "$package" &>/dev/null; then
 			echo "$package is already installed."
 		else
 			echo "Installing $package..."
-		fi
-	done
-	for package in "${packages[@]}"; do
-		if ! which "$package" &>/dev/null; then
 			echo "Installing $package..."
 			brew install "$package"
-		else
-			echo "$package is already installed."
 		fi
 	done
 }
